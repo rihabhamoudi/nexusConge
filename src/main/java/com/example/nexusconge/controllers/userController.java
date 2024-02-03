@@ -45,16 +45,16 @@ public class userController {
         myRoles.forEach(role -> {
             switch (role){
                 case "RH":
-                    Role adminrole= roleRepo.findByNameRole(ERole.RH).orElse(null);
-                    roles.add(adminrole);
+                    Role rhrole= roleRepo.findByNameRole(ERole.RH).orElse(null);
+                    roles.add(rhrole);
                     break;
                 case "EMPLOYE":
-                    Role managrole= roleRepo.findByNameRole(ERole.EMPLOYE).orElse(null);
-                    roles.add(managrole);
+                    Role EMPLOYErole= roleRepo.findByNameRole(ERole.EMPLOYE).orElse(null);
+                    roles.add(EMPLOYErole);
                     break;
                 case "NPLUS1":
-                    Role employeerole= roleRepo.findByNameRole(ERole.NPlus1).orElse(null);
-                    roles.add(employeerole);
+                    Role nplus1role= roleRepo.findByNameRole(ERole.NPlus1).orElse(null);
+                    roles.add(nplus1role);
                     break;
                 default:
                     Role defaultrole= roleRepo.findByNameRole(ERole.EMPLOYE).orElse(null);
