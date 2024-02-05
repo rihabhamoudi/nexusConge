@@ -80,11 +80,11 @@ public class userController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @PostMapping("/assign/{idEquipe}/{idUser}")
+    public user assignTeamToUser(@PathVariable Long idEquipe, @PathVariable Long idUser) {
+        return userService.assignUserToTeam(idEquipe, idUser);
+    }
 
-    /*@PostMapping("/assign/{idEquipe}/{idUser}")
-    public user assignTeamToUser (long idEquipe, long idUser) {
-        return userService.assignUserToTeam(idEquipe,idUser);
 
-    }*/
-
-    }}
+    }

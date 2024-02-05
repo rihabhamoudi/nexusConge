@@ -37,16 +37,17 @@ userRepo userRepo;
         return userRepo.findByActivite(activite);
     }
 
-    /*public user assignUserToTeam(long idEquipe, long idUser) {
+    public user assignUserToTeam(Long idEquipe, Long idUser) {
         user user = userRepo.findById(idUser)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user id"));
 
-        equipe team = (equipe) equipeRepo.findById(idEquipe);
+        equipe team = equipeRepo.findById(idEquipe)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid equipe id"));
 
         user.setEquipe(team);
 
         return userRepo.save(user);
-    }*/
+    }
 
 
 
