@@ -1,13 +1,13 @@
 package com.example.nexusconge.controllers;
 
 
-import com.example.nexusconge.entities.ERole;
-import com.example.nexusconge.entities.Role;
-import com.example.nexusconge.entities.user;
+import com.example.nexusconge.entities.*;
 import com.example.nexusconge.repositories.roleRepo;
 import com.example.nexusconge.repositories.userRepo;
 import com.example.nexusconge.services.userService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -72,10 +72,19 @@ public class userController {
         return userRepo.save(u);
     }
 
+    @GetMapping("/findByAct")
+    public ResponseEntity<List<user>> filtrerParActivite(@RequestParam activite activite) {
+        try {
+            List<user> result = userService.filtrerParActivite(activite);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     /*@PostMapping("/assign/{idEquipe}/{idUser}")
     public user assignTeamToUser (long idEquipe, long idUser) {
         return userService.assignUserToTeam(idEquipe,idUser);
 
     }*/
 
-}
+    }}

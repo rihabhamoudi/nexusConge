@@ -1,6 +1,7 @@
 package com.example.nexusconge.repositories;
 
 import com.example.nexusconge.entities.Conge;
+import com.example.nexusconge.entities.activite;
 import com.example.nexusconge.entities.typeConge;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,7 @@ public interface congeRepo  extends JpaRepository<Conge, Long> {
     List<Conge> findByDatedebut(Date datedebut);
     List<Conge> findByRaison(String raison);
     List <Conge> findByType(typeConge type);
+
    /* @Query("SELECT c FROM Conge c WHERE c.datedebut BETWEEN :startDate AND :endDate")
     List<Conge> findByDateRange(@Param("startDate") Date startDate, @Param("endDate") Date endDate);*/
 

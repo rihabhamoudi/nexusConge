@@ -1,6 +1,7 @@
 package com.example.nexusconge.services;
 
 import com.example.nexusconge.entities.Conge;
+import com.example.nexusconge.entities.activite;
 import com.example.nexusconge.entities.typeConge;
 import com.example.nexusconge.repositories.congeRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,11 @@ public class congeService {
 
     public List<Conge> findByType(typeConge type) {
         return congeRepo.findByType(type);
-    }/*
+    }
+
+
+
+    /*
     public List<Conge> findByDateRange(Date startDate, Date endDate) {
         return congeRepo.findByDateRange(startDate, endDate);
     }*/

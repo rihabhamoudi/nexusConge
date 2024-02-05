@@ -1,12 +1,13 @@
 package com.example.nexusconge.services;
 
-import com.example.nexusconge.entities.equipe;
-import com.example.nexusconge.entities.user;
+import com.example.nexusconge.entities.*;
 import com.example.nexusconge.repositories.equipeRepo;
 import com.example.nexusconge.repositories.userRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -32,6 +33,10 @@ userRepo userRepo;
             return true;
         }
     }
+    public List<user> filtrerParActivite(activite activite) {
+        return userRepo.findByActivite(activite);
+    }
+
     /*public user assignUserToTeam(long idEquipe, long idUser) {
         user user = userRepo.findById(idUser)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user id"));
