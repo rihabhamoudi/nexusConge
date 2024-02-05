@@ -72,5 +72,10 @@ public class userController {
         return userRepo.save(u);
     }
 
+    /*@PostMapping("/assign/{idEquipe}/{idUser}")
+    public user assignTeamToUser (long idEquipe, long idUser) {
+        return userService.assignUserToTeam(idEquipe,idUser);
+
+    }*/
 
 }

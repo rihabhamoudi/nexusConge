@@ -1,6 +1,8 @@
 package com.example.nexusconge.services;
 
+import com.example.nexusconge.entities.equipe;
 import com.example.nexusconge.entities.user;
+import com.example.nexusconge.repositories.equipeRepo;
 import com.example.nexusconge.repositories.userRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ public class userService {
 
 @Autowired
 userRepo userRepo;
+@Autowired
+    equipeRepo equipeRepo;
     public Long AjouterUser(user user) {
         userRepo.save(user);
         return user.getIdUser();
@@ -28,6 +32,17 @@ userRepo userRepo;
             return true;
         }
     }
+    /*public user assignUserToTeam(long idEquipe, long idUser) {
+        user user = userRepo.findById(idUser)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user id"));
+
+        equipe team = (equipe) equipeRepo.findById(idEquipe);
+
+        user.setEquipe(team);
+
+        return userRepo.save(user);
+    }*/
+
 
 
 }

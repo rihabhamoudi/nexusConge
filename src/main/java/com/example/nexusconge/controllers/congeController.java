@@ -2,6 +2,7 @@ package com.example.nexusconge.controllers;
 
 
 import com.example.nexusconge.entities.Conge;
+import com.example.nexusconge.entities.typeConge;
 import com.example.nexusconge.repositories.congeRepo;
 import com.example.nexusconge.services.congeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 //@CrossOrigin("*")
@@ -56,4 +58,44 @@ public class congeController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
     }
+    @GetMapping("/findByStartDate")
+    public ResponseEntity<List<Conge>> findByStartDate(@RequestParam Date datedebut) {
+        try {
+            List<Conge> result = congeService.findByStartDate(datedebut);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/findByReason")
+    public ResponseEntity<List<Conge>> findByReason(@RequestParam String raison) {
+        try {
+            List<Conge> result = congeService.findByReason(raison);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/findByType")
+    public ResponseEntity<List<Conge>> findByType(@RequestParam typeConge type) {
+        try {
+            List<Conge> result = congeService.findByType(type);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }/*
+    @GetMapping("/findByDateRange")
+    public ResponseEntity<List<Conge>> findByDateRange(
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate) {
+        try {
+            List<Conge> result = congeService.findByDateRange(startDate, endDate);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }*/
 }

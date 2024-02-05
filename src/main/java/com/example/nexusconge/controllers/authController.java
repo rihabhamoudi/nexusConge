@@ -51,22 +51,20 @@ public class authController {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    // @Autowired
-   // PasswordEncoder encoder;
+
     @PostMapping("/signUp")
     @ResponseBody
     public ResponseEntity<String> signUpV3(@Valid @RequestBody user userDTO) {
         try {
-            // Validate the userDTO (you can add more validation annotations to your user class)
-            // ... (validation and other code)
+
             String matricule = generateUniqueMatricule();
             userDTO.setMatricule(Long.valueOf(matricule));
 
-            // Récupération des rôles à partir du corps de la requête
+
             Set<Role> roles = userDTO.getRoles();
             System.out.println("tagtag" + roles);
 
-            // Construction de l'ensemble de rôles
+
             Set<Role> userRoles = new HashSet<>();
             roles.forEach(role -> {
                 if ("RH".equals(role)) {
@@ -80,7 +78,7 @@ public class authController {
                 }
             });
 
-            // Création de l'utilisateur
+
             user u = new user();
             u.setEmail(userDTO.getEmail());
             u.setPassword(encoder.encode(userDTO.getPassword()));
@@ -89,7 +87,7 @@ public class authController {
             u.setActivite(userDTO.getActivite());
             u.setRoles(userRoles);
 
-            // Ajout de l'utilisateur et attribution du rôle
+
             if (userService.signup(u)) {
                 // Send email to the registered user
                 sendRegistrationEmail(u);
@@ -104,10 +102,9 @@ public class authController {
         }
     }
     private String generateUniqueMatricule() {
-        // Logic to generate a unique matricule (you can use database sequences, timestamps, etc.)
-        // For simplicity, let's generate a random 4-digit matricule
+
         Random random = new Random();
-        int matriculeNumber = random.nextInt(9000) + 1000; // Generates a random 4-digit number
+        int matriculeNumber = random.nextInt(9000) + 1000;
         return String.valueOf(matriculeNumber);
     }
         private void sendRegistrationEmail(user user) {
@@ -158,11 +155,9 @@ public class authController {
                    // roles
             ));
         } catch (AuthenticationException e) { e.printStackTrace();
-            // Authentication failed, increment failed login attempt count
            // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");}
             }
 
-        // Authentication failed, return error response
 
         return null;
     }}
