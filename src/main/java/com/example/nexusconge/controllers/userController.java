@@ -65,7 +65,7 @@ public class userController {
         user u = new user();
         u.setIdUser(user.getIdUser());
         u.setEmail(user.getEmail());
-        u.setMot_de_passe(user.getMot_de_passe());
+        u.setPassword(user.getPassword());
         u.setUsername(user.getUsername());
         u.setRoles(roles);
 

@@ -20,6 +20,7 @@ userRepo userRepo;
     public boolean signup(user u){
         user user1 = userRepo.findByUsername(u.getUsername()).orElse(null);
         user user2 = userRepo.findUserByEmail(u.getUsername()).orElse(null);
+
         if (user1 != null || user2 != null){
             return false;
         }else{

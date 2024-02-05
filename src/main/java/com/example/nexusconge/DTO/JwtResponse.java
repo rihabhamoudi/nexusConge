@@ -8,15 +8,29 @@ public class JwtResponse {
 	  private Integer id;
 	  private String username;
 	  private String email;
+	private String activite;
+	   private Long matricule;
+
 	  private List<String> roles;
 
-	  public JwtResponse(String accessToken, Integer id, String username, String email) {
+
+
+	public JwtResponse(String accessToken, Integer id, String username, String email, Long matricule, com.example.nexusconge.entities.activite activite) {
 	    this.token = accessToken;
 	    this.id = id;
 	    this.username = username;
 	    this.email = email;
+		this.matricule=matricule;
+		this.activite= String.valueOf(activite);
 	   // this.roles = roles;
 	  }
+	public String getActivite() {
+		return activite;
+	}
+
+	public void setActivite(String activite) {
+		this.activite = activite;
+	}
 
 	  public String getAccessToken() {
 	    return token;
@@ -37,7 +51,7 @@ public class JwtResponse {
 	  public Integer getId() {
 	    return id;
 	  }
-
+	public  Long getMatricule(){return  matricule;}
 	  public void setId(Integer id) {
 	    this.id = id;
 	  }

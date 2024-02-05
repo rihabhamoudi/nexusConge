@@ -20,9 +20,10 @@ public class user {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user", nullable = false)
     private Long idUser;
+    @Column(unique = true)
     private  Long matricule ;
     private  String username;
-    private  String mot_de_passe ;
+    private  String password ;
     private  String email;
     private  String solde_conge;
     @Enumerated(EnumType.STRING)
