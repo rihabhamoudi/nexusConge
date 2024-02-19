@@ -33,7 +33,10 @@ public class user {
     private List<Conge> congeList;
     @ManyToOne
     equipe equipe;
+    @ManyToOne
+    NPlus1 nPlus1;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
 }

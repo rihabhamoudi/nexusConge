@@ -14,24 +14,24 @@ public class roleController {
   roleService roleService;
 
 
-    @PostMapping("/addsprint")
+    @PostMapping("/addrole")
     public void ajouterRole(@RequestBody Role role){
         roleService.AjouterDelivery(role);
     }
-    @GetMapping(value = "/sprints")
+    @GetMapping(value = "/roles")
     @ResponseBody
     public List<Role> getAllroles() {
         return roleService.getAllRole();
     }
 
 
-    @PutMapping("/updateSprint")
+    @PutMapping("/updaterole")
     @ResponseBody
     public void updaterole(@RequestBody Role R){
         roleService.update(R);
     }
 
-    @DeleteMapping("/deleteSprint/{id}")
+    @DeleteMapping("/deleterole/{id}")
     @ResponseBody
     public void deleterole (@PathVariable  int  id ){
         roleService.delete(id);

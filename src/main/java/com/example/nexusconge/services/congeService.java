@@ -56,7 +56,7 @@ public class congeService {
         return congeRepo.findByType(type);
     }
     @Transactional
-    public Conge createConge(Long userId, Date dateDebut, Date dateFin, String raison) {
+    public Conge createConge(Long userId, Date dateDebut, Date dateFin, String raison , typeConge type) {
         user user = userRepo.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
 
         // Création du congé
@@ -64,6 +64,7 @@ public class congeService {
         conge.setDatedebut(dateDebut);
         conge.setDatefin(dateFin);
         conge.setRaison(raison);
+        conge.setType(type);
 
         // Initialisation de la liste users si elle est null
         if (conge.getUsers() == null) {

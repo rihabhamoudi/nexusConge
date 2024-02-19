@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 //@CrossOrigin("*")
 @RestController
@@ -54,11 +55,27 @@ public class congeController {
     }
 
 
-    @PostMapping("/upload")
+    /*@PostMapping("/upload")
     public ResponseEntity<Conge> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             Conge conge = congeRepo.store(file);
             return ResponseEntity.status(HttpStatus.OK).body(conge);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+    }*/
+    @PostMapping("/upload")
+    public ResponseEntity<Conge> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("idConge") Long idConge) {
+        try {
+            Optional<Conge> optionalConge = congeRepo.findById(idConge);
+            if (optionalConge.isPresent()) {
+                Conge conge = optionalConge.get();
+                conge.setData(file.getBytes());
+                Conge updatedConge = congeRepo.save(conge);
+                return ResponseEntity.status(HttpStatus.OK).body(updatedConge);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Congé not found with the provided ID
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
@@ -93,7 +110,7 @@ public class congeController {
         }}
     @PostMapping("/createConge")
     public ResponseEntity<Conge> createConge(@RequestBody CreateCongeRequest request) {
-        Conge conge = congeService.createConge(request.getUserId(), request.getDateDebut(), request.getDateFin(), request.getRaison());
+        Conge conge = congeService.createConge(request.getUserId(), request.getDateDebut(), request.getDateFin(), request.getRaison(), request.getType());
         return new ResponseEntity<>(conge, HttpStatus.CREATED);
     }
 
@@ -104,11 +121,13 @@ public class congeController {
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         private Date dateFin;
         private String raison;
+        private  typeConge type;
 
         // Getters and setters
         public Long getUserId() {
             return userId;
         }
+        public typeConge getType(){return type;}
 
         public void setUserId(Long userId) {
             this.userId = userId;

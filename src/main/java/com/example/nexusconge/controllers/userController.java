@@ -27,7 +27,7 @@ public class userController {
     private roleRepo roleRepo;
 
     @PostMapping("/adduser")
-    public void ajouterUser(@RequestBody user user){
+   public void ajouterUser(@RequestBody user user){
         userService.AjouterUser(user);
     }
 
@@ -86,5 +86,8 @@ public class userController {
         return userService.assignUserToTeam(idEquipe, idUser);
     }
 
-
+    @PostMapping("/assignrole/{id}/{idUser}")
+    public user assignUserToRole(@PathVariable Integer id, @PathVariable Long idUser) {
+        return userService.assignUserToRole(id, idUser);
+    }
     }
