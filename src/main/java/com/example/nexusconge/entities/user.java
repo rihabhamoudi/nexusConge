@@ -26,6 +26,7 @@ public class user {
     private  String password ;
     private  String email;
     private  String solde_conge;
+    //private String newPassword;
     @Enumerated(EnumType.STRING)
     private  activite activite;
     @ManyToMany

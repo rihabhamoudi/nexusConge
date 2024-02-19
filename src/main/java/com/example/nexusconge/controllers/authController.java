@@ -1,15 +1,13 @@
 package com.example.nexusconge.controllers;
-import  com.example.nexusconge.config.MailConfiguration;
 
-import com.example.nexusconge.DTO.JwtResponse;
-import com.example.nexusconge.DTO.LoginRequest;
+import com.example.nexusconge.jwtSec.JwtResponse;
+import com.example.nexusconge.jwtSec.LoginRequest;
 import com.example.nexusconge.entities.ERole;
 import com.example.nexusconge.entities.Role;
 import com.example.nexusconge.entities.user;
 import com.example.nexusconge.security.JwtUtils;
 import com.example.nexusconge.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -19,9 +17,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -122,6 +120,27 @@ public class authController {
           catch (Exception e) {
               e.printStackTrace();}
         }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestParam String username, @RequestParam String password, @RequestParam String newPassword) {
+        // Recherche de l'utilisateur par son nom d'utilisateur
+        user user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        // Vérification de l'ancien mot de passe
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Old password is incorrect");
+        }
+
+        // Mise à jour du mot de passe avec le nouveau mot de passe haché
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepo.save(user);
+
+        return ResponseEntity.ok("Password changed successfully");
+    }
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUserV2(@Valid @RequestBody LoginRequest loginRequest) throws IOException {
 

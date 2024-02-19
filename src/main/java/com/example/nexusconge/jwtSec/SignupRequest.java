@@ -1,4 +1,4 @@
-package com.example.nexusconge.DTO;
+package com.example.nexusconge.jwtSec;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

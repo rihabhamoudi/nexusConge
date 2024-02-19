@@ -1,4 +1,4 @@
-package com.example.nexusconge.DTO;
+package com.example.nexusconge.jwtSec;
 
 import java.util.List;
 
